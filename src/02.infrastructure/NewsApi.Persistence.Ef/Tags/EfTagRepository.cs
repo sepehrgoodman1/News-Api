@@ -36,5 +36,10 @@ namespace NewsApi.Persistence.Ef.Tags
             _tags.Add(tag);
 
         }
+
+        public async Task<Tag> FindTag(string name)
+        {
+            return await  _tags.Where(_ => _.Name == name).FirstOrDefaultAsync();
+        }
     }
 }

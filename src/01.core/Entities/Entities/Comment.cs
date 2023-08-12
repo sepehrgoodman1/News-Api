@@ -16,7 +16,8 @@ namespace Entities.Entities
         public string Name { get; set; }
         public string Text { get; set; }
         public CommentStatus CommentStatus { get; set; }
-        public HashSet<News> News { get; set; }
+        public int NewsId { get; set; }
+        public News News { get; set; }
 
     }
 }

@@ -20,10 +20,9 @@ namespace Entities.Entities
         public int CountViews { get; set; }
         public int GroupId { get; set; }
         public int CityId { get; set; }
-        public int CommentId { get; set; }
         public Group Group { get; set; } 
         public City City { get; set; } 
         public HashSet<NewsTag> NewsTags { get; set; }
-        public Comment Comment { get; set; }
+        public HashSet<Comment> Comments { get; set; }
     }
 }

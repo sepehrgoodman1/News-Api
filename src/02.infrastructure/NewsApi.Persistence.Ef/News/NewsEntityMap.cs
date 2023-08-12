@@ -22,7 +22,6 @@ namespace NewApi.Persistence.Ef.New
             _.Property(_=> _.Date).IsRequired();
             _.Property(_=> _.CountViews).IsRequired();
             _.HasOne(_=> _.City).WithMany(_ => _.News).HasForeignKey(x => x.CityId);
-            _.HasOne(_=> _.Comment).WithMany(_ => _.News).HasForeignKey(x => x.CommentId);
             _.HasOne(_=> _.Group).WithMany(_ => _.News).HasForeignKey(x => x.GroupId);
         }
     }

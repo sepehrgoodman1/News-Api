@@ -11,7 +11,8 @@
     <Folder Include="Comments\Contracts\Dtos\" />
     <Folder Include="Comments\Exceptions\" />
     <Folder Include="Groups\Exceptions\" />
-    <Folder Include="News\Contracts\Dtos\" />
+    <Folder Include="NewsTag\Contracts\Dtos\" />
+    <Folder Include="NewsTag\Exceptions\" />
     <Folder Include="News\Exceptions\" />
     <Folder Include="Tags\Exceptions\" />
   </ItemGroup>

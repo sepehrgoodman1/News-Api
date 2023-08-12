@@ -13,9 +13,9 @@ namespace NewsApi.Migrations.Migrations
         public override void Up()
         {
             CreateCity();
-            CreateComment();
             CreateGroup();
             CreateNews();
+            CreateComment();
             CreateTag();
             CreateNewsTag();
 
@@ -24,9 +24,9 @@ namespace NewsApi.Migrations.Migrations
         {
             Delete.Table("NewsTags");
             Delete.Table("Tags");
+            Delete.Table("Comments");
             Delete.Table("News");
             Delete.Table("Groups");
-            Delete.Table("Comments");
             Delete.Table("Cities");
 
         }
@@ -38,13 +38,7 @@ namespace NewsApi.Migrations.Migrations
             Create.Table("Cities").WithColumn("Id").AsInt32().PrimaryKey().Identity()
                                   .WithColumn("Name").AsString().NotNullable();
         }
-        void CreateComment()
-        {
-            Create.Table("Comments").WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                                  .WithColumn("Name").AsString().NotNullable()
-                                  .WithColumn("Text").AsString()
-                                  .WithColumn("CommentStatus").AsInt32().NotNullable();
-        }
+     
         void CreateGroup()
         {
             Create.Table("Groups").WithColumn("Id").AsInt32().PrimaryKey().Identity()
@@ -61,10 +55,18 @@ namespace NewsApi.Migrations.Migrations
                              .WithColumn("GroupId").AsInt32()
                              .ForeignKey("FK_News_Groups", "Groups", "Id")
                              .WithColumn("CityId").AsInt32()
-                             .ForeignKey("FK_News_Cities", "Cities", "Id")
-                             .WithColumn("CommentId").AsInt32()
-                             .ForeignKey("FK_News_Comments", "Comments", "Id");
+                             .ForeignKey("FK_News_Cities", "Cities", "Id");
+                            
 
+        }
+        void CreateComment()
+        {
+            Create.Table("Comments").WithColumn("Id").AsInt32().PrimaryKey().Identity()
+                                  .WithColumn("Name").AsString().NotNullable()
+                                  .WithColumn("Text").AsString()
+                                  .WithColumn("CommentStatus").AsInt32().NotNullable()
+                                  .WithColumn("NewsId").AsInt32()
+                                  .ForeignKey("FK_Comment_News", "News", "Id");
         }
         void CreateTag()
         {
@@ -74,7 +76,7 @@ namespace NewsApi.Migrations.Migrations
         }
         void CreateNewsTag()
         {
-            Create.Table("NewsTags")
+            Create.Table("NewsTags").WithColumn("Id").AsInt32().PrimaryKey().Identity()
                                     .WithColumn("TagsId").AsInt32().PrimaryKey()
                                     .ForeignKey("FK_NewsTags_Tags", "Tags", "Id")
                                     .WithColumn("NewsId").AsInt32().PrimaryKey()

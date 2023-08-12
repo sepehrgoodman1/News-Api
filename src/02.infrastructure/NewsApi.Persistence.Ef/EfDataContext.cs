@@ -19,6 +19,7 @@ namespace NewApi.Persistence.Ef
         public DbSet<Group> Groups { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<NewsTag> NewsTags { get; set; }
 
     }
 }

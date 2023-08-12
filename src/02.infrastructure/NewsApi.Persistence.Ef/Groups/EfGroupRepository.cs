@@ -31,9 +31,9 @@ namespace NewsApi.Persistence.Ef.Groups
             return Cities;
         }
 
-        public void Add(Group city)
+        public void Add(Group group)
         {
-            _group.Add(city);
+            _group.Add(group);
 
         }
 

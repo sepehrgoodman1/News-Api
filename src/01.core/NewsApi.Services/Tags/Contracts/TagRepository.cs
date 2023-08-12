@@ -12,5 +12,6 @@ namespace NewsApi.Services.Tags.Contracts
     {
         Task<List<GetTagDto>> GetAll();
         void Add(Tag city);
+        Task<Tag> FindTag(string name);
     }
 }

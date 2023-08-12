@@ -11,7 +11,7 @@ namespace Entities.Entities
         public int Id { get; set; }
         public int TagsId { get; set; }
         public int NewsId { get; set; }
-        public Tag Tags { get; set; }
-        public News News { get; set; }
+        public Tag? Tags { get; set; } = null;
+        public News? Newss { get; set; } = null;
     }
 }
