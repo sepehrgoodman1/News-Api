@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Cities\Exceptions\" />
+    <Folder Include="Comments\Contracts\Dtos\" />
+    <Folder Include="Comments\Exceptions\" />
+    <Folder Include="Groups\Exceptions\" />
+    <Folder Include="News\Contracts\Dtos\" />
+    <Folder Include="News\Exceptions\" />
+    <Folder Include="Tags\Exceptions\" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\00.package\Taav.Contracts\Taav.Contracts.csproj" />
+    <ProjectReference Include="..\Entities\NewsApi.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
