@@ -55,5 +55,11 @@ namespace NewsApi.NewsApi.Controllers
         {
             await _service.Update(id, city);
         }
+
+        [HttpPut("update-tag")]
+        public async Task UpdateTags( int idNews , int idTag)
+        {
+            await _service.UpdateTags(idNews, idTag);
+        }
     }
 }

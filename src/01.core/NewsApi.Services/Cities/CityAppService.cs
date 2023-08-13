@@ -1,6 +1,7 @@
 ﻿using Entities.Entities;
 using NewsApi.Services.Cities.Contracts;
 using NewsApi.Services.Cities.Contracts.Dtos;
+using NewsApi.Services.Cities.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace NewsApi.Services.Cities
         public async Task Update(int id, UpdateCityDto city)
         {
             var _city = await _repository.FindCity(id);
+
+            if(_city == null)
+            {
+                throw new CityNotFoundException();
+            }
            
             _city.Name = city.Name;
 

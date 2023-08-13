@@ -25,9 +25,9 @@ namespace NewsApi.NewsApi.Controllers
         }
 
         [HttpPost]
-        public async Task Add(AddGroupDto city)
+        public async Task Add(AddGroupDto group)
         {
-            await _service.Add(city);
+            await _service.Add(group);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Azure;
 using Entities.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewApi.Persistence.Ef;
 using NewApi.Services.New.Contracts;
+using NewsApi.Services.Comments.Contracts.Dtos;
 using NewsApi.Services.Groups.Contracts.Dtos;
 using NewsApi.Services.News.Contracts;
 using NewsApi.Services.News.Contracts.Dtos;
@@ -88,30 +90,39 @@ namespace NewApi.Persistence.Ef.New
 
         public async Task<GetByIdDto> GetWithId(int id)
         {
-            var FindedNews = await _news.FindAsync(id);
 
-            var FindedNewsDto = new GetByIdDto
-            {
-                Title = FindedNews.Title,
-                Text = FindedNews.Text,
-                CountViews = FindedNews.CountViews,
-                GroupName = FindedNews.Group.Name,
-                CityName = FindedNews.City.Name,
-                Comments = FindedNews.Comments.Where(_=> _.CommentStatus == CommentStatus.Confirmed)
+
+            var news =
+                await _news.Where(_ => _.Id == id).Select(c =>
+
+                                                new GetByIdDto()
+                                                {
+
+                                                    Title = c.Title,
+                                                    Text = c.Text,
+                                                    
+                                                    CountViews = c.CountViews,
+                                                    GroupName = c.Group.Name,
+                                                    CityName = c.City.Name,
+                                                    Comments = c.Comments.Where(_ => _.CommentStatus == CommentStatus.Confirmed)
                                             .Select(C => new ApprovalCommenstsDto
-                                                        {
-                                                            Name = C.Name,
-                                                            Text = C.Text
-                                                        }).ToList(),
-                Date = FindedNews.Date,
-                Tags = FindedNews.NewsTags.Select(t => t.Tags.Name)
-            };
+                                            {
+                                                Name = C.Name,
+                                                Text = C.Text
+                                            }).ToList(),
+                                                    Date = c.Date,
+                                                    Tags = c.NewsTags.Select(t => t.Tags.Name)
+                                                }).FirstOrDefaultAsync();
 
-            return  FindedNewsDto;
 
+            return news;
                  
         }
 
+        public async Task<bool> IsExistByTagName(string tagName)
+        {
+            return await _news.Select(_ => _.NewsTags.Any(n => n.Tags.Name.Contains(tagName))).FirstOrDefaultAsync();
+        }
 
 
         public async Task<News> GetById(int id)
@@ -123,5 +134,8 @@ namespace NewApi.Persistence.Ef.New
         {
             _news.Update(news);
         }
+
+
+       
     }
 }

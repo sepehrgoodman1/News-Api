@@ -10,6 +10,8 @@ namespace NewsApi.Services.NewsTags.Contracts
     public interface NewsTagRepository
     {
         void Add(NewsTag newsTag);
+        Task<NewsTag> FindNewsTag(int idNews, int idTag);
+        void Remove(NewsTag newsTag);
 
     }
 }

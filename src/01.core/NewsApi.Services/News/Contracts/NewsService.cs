@@ -17,5 +17,6 @@ namespace NewsApi.Services.News.Contracts
         Task<List<GetNewsDto>> GetAllByCity([FromBody] string cityName);
         Task<List<GetNewsDto>> GetAllByGroup(string groupName);
         Task<GetByIdDto> GetWithId(int id);
+        Task UpdateTags(int idNews, int idTag);
     }
 }

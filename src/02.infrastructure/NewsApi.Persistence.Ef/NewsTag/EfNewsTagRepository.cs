@@ -25,5 +25,15 @@ namespace NewsApi.Persistence.Ef.NewsTags
             _newsTag.Add(newsTags);
 
         }
+        public async Task<NewsTag> FindNewsTag(int idNews, int idTag)
+        {
+            return await _newsTag.Where(_=>_.NewsId == idNews && _.TagsId == idTag).FirstOrDefaultAsync();
+           
+        }
+
+        public void Remove(NewsTag newsTag)
+        {
+             _newsTag.Remove(newsTag);
+        }
     }
 }

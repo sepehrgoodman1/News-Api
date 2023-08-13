@@ -9,17 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Taav.Contracts.Interfaces;
 using Entities.Entities;
+using NewApi.Services.New.Contracts;
+using NewsApi.Services.Tags.Exceptions;
 
 namespace NewsApi.Services.Tags
 {
     public class TagAppService : TagService
     {
         private readonly TagRepository _repository;
+        private readonly NewsRepository _newsRepository;
         private readonly UnitOfWork _unitOfWork;
-        public TagAppService(TagRepository repository, UnitOfWork unitOfWork)
+        public TagAppService(TagRepository repository, NewsRepository newsRepository, UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _newsRepository = newsRepository;
         }
         public async Task<List<GetTagDto>> GetAll()
         {
@@ -38,6 +42,25 @@ namespace NewsApi.Services.Tags
             await _unitOfWork.Complete();
         }
 
+        public async Task Delete(int id)
+        {
+            var tag = await _repository.GetTag(id);
+
+            if(tag == null)
+            {
+                throw new TagNotFoundException();
+            }
+
+            if(! await _newsRepository.IsExistByTagName(tag.Name))
+            {
+                _repository.Delete(tag);
+
+                await _unitOfWork.Complete();
+            }
+        }
+
+
+       
 
     }
 }

@@ -18,6 +18,7 @@ namespace NewApi.Services.New.Contracts
         Task<List<GetNewsDto>> GetAllByCity(string cityName);
         Task<List<GetNewsDto>> GetAllByGroup(string groupName);
         Task<GetByIdDto> GetWithId(int id);
+        Task<bool> IsExistByTagName(string tagName);
 
     }
 }

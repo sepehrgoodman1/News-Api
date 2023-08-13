@@ -5,11 +5,14 @@ using NewApi.Persistence.Ef.New;
 using NewApi.Services.New;
 using NewApi.Services.New.Contracts;
 using NewsApi.Persistence.Ef.Cities;
+using NewsApi.Persistence.Ef.Comments;
 using NewsApi.Persistence.Ef.Groups;
 using NewsApi.Persistence.Ef.NewsTags;
 using NewsApi.Persistence.Ef.Tags;
 using NewsApi.Services.Cities;
 using NewsApi.Services.Cities.Contracts;
+using NewsApi.Services.Comments;
+using NewsApi.Services.Comments.Contracts;
 using NewsApi.Services.Groups;
 using NewsApi.Services.Groups.Contracts;
 using NewsApi.Services.News.Contracts;
@@ -34,6 +37,9 @@ builder.Services.AddScoped<TagService, TagAppService>();
 
 builder.Services.AddScoped<NewsRepository, EfNewsRepository>();
 builder.Services.AddScoped<NewsService, NewsAppService>();
+
+builder.Services.AddScoped<CommentService, CommentAppService>();
+builder.Services.AddScoped<CommentRepository, EfCommentRepository>();
 
 builder.Services.AddScoped<NewsTagRepository, EfNewsTagRepository>();
 

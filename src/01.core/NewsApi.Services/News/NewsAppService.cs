@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NewApi.Services.New.Contracts;
 using NewsApi.Services.News.Contracts;
 using NewsApi.Services.News.Contracts.Dtos;
+using NewsApi.Services.News.Exceptions;
 using NewsApi.Services.NewsTags.Contracts;
 using NewsApi.Services.Tags.Contracts;
 using System;
@@ -90,13 +91,11 @@ namespace NewApi.Services.New
 
         public async Task<List<GetNewsDto>> GetAll()
         {
-            
             return await _repository.GetAll();
         }
 
         public async Task<List<GetSlideNewsDto>> GetAllWithSliders()
         {
-
             return await _repository.GetAllWithSliders();
         }
         public async Task<List<GetNewsDto>> GetAllByCity(string cityName)
@@ -109,12 +108,19 @@ namespace NewApi.Services.New
         }
         public async Task<GetByIdDto> GetWithId(int id)
         {
+            await IncreaseCountViews(id);
+
             return await _repository.GetWithId(id);
         }
 
         public async Task Update(int id, UpdateNewsDto news)
         {
             var FindedNews = await _repository.GetById(id);
+
+            if (FindedNews == null)
+            {
+                throw new NewsNotFoundException();
+            }
 
             FindedNews.Title = news.title;
             FindedNews.Text = news.text;
@@ -123,6 +129,39 @@ namespace NewApi.Services.New
             _repository.Update(FindedNews);
 
             await _unitOfWork.Complete();
+
+        }
+
+        public async Task IncreaseCountViews(int id)
+        {
+            var FindedNews = await _repository.GetById(id);
+
+            if(FindedNews == null)
+            {
+                throw new NewsNotFoundException();
+            }
+
+            FindedNews.CountViews++;
+
+            _repository.Update(FindedNews);
+
+            await _unitOfWork.Complete();
+        }
+
+        public async Task UpdateTags(int idNews, int idTag)
+        {
+            var newsTag = await _newsTagRepository.FindNewsTag(idNews, idTag);
+
+            if(newsTag == null)
+            {
+                throw new WrongTagOrNewsIdException();
+            }
+            else
+            {
+                _newsTagRepository.Remove(newsTag);
+
+                await _unitOfWork.Complete();
+            }
 
         }
     }

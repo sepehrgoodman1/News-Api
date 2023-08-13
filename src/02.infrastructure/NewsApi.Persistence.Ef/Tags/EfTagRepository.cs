@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taav.Contracts.Interfaces;
 
 namespace NewsApi.Persistence.Ef.Tags
 {
@@ -41,5 +42,18 @@ namespace NewsApi.Persistence.Ef.Tags
         {
             return await  _tags.Where(_ => _.Name == name).FirstOrDefaultAsync();
         }
+
+        public async Task<Tag> GetTag(int id)
+        {
+            return await _tags.FindAsync(id);
+        }
+
+        public void Delete(Tag tag)
+        {
+            _tags.Remove(tag);
+
+        }
+
+    
     }
 }

@@ -11,5 +11,7 @@ namespace NewsApi.Services.Tags.Contracts
     {
         Task<List<GetTagDto>> GetAll();
         Task Add(AddTagDto tag);
+        Task Delete(int id);
+    
     }
 }

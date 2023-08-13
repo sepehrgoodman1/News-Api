@@ -10,7 +10,7 @@ namespace NewsApi.Services.Groups.Contracts
 {
     public interface GroupService
     {
-        Task Add(AddGroupDto city);
+        Task Add(AddGroupDto group);
         Task<List<GetGroupDto>> GetAll();
     }
 }

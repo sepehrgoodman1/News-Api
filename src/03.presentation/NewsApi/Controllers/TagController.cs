@@ -29,5 +29,12 @@ namespace NewsApi.NewsApi.Controllers
         {
             await _service.Add(tag);
         }
+
+
+        [HttpDelete]
+        public async Task Delete(int id)
+        {
+            await _service.Delete(id);
+        }
     }
 }

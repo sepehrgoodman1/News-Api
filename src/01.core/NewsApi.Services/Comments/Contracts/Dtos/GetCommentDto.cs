@@ -4,22 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Entities
+namespace NewsApi.Services.Comments.Contracts.Dtos
 {
-    public class Comment
+    public class GetCommentDto
     {
-       
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
         public CommentStatus CommentStatus { get; set; }
         public int NewsId { get; set; }
-        public News News { get; set; } 
-
     }
-}
-public enum CommentStatus :int
-{
-    Confirmed = 1,
-    Pending = 0
 }

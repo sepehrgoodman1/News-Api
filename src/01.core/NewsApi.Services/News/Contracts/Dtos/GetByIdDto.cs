@@ -13,7 +13,7 @@ namespace NewsApi.Services.News.Contracts.Dtos
         public int CountViews { get; set; }
         public string GroupName { get; set; }
         public string CityName { get; set; }
-        public List<ApprovalCommenstsDto> Comments { get; set; } = new List<ApprovalCommenstsDto>();
+        public List<ApprovalCommenstsDto>? Comments { get; set; } = new List<ApprovalCommenstsDto>();
         public DateTime Date { get; set; }
         public IEnumerable<string> Tags { get; set; }
     }
